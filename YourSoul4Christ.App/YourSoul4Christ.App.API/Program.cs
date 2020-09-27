@@ -18,8 +18,13 @@ namespace YourSoul4Christ.App.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                //.ConfigureAppConfiguration((hostingContext, config) =>
+                //{
+                //    config.AddJsonFile("Data\\verses.json", optional: false, reloadOnChange: true);
+                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

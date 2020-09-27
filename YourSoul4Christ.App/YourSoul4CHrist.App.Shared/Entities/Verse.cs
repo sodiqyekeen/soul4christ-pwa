@@ -9,7 +9,7 @@ namespace YourSoul4CHrist.App.Shared.Entities
         public int Id { get; set; }
         public string Book { get; set; }
         public string Content { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string? Comment { get; set; }
     }
 }
