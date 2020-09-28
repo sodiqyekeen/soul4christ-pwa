@@ -8,28 +8,13 @@ trigger:
 
 pool:
   vmImage: "windows-latest"
-  demands:
-    - npm
 
 variables:
   solution: "**/*.sln"
   buildPlatform: "Any CPU"
-  buildConfiguration: "Release"
-  wwwrootDir: "YourSoul4Christ.App/YourSoul4Christ.App.Client/wwwroot"
 
 steps:
   - task: NuGetToolInstaller@1
-
-  - task: Npm@1
-    displayName: "Run npm install"
-    inputs:
-      verbose: false
-
-  - script: "node_modules\.bin\node-sass $(wwwrootDir) --output $(wwwrootDir)"
-    displayName: "Compile Sass assets"
-
-  - task: gulp@1
-    displayName: "Run gulp tasks"
 
   - task: NuGetCommand@2
     inputs:
