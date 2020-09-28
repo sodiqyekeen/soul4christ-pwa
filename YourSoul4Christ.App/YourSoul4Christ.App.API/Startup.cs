@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,17 +33,20 @@ namespace YourSoul4Christ.App.API
             //    .AddJsonFile("Data\\verses.json", optional: false, reloadOnChange: true)
             //    .Build();
             Configuration = configuration;
-            SwaggerOptions= new SwaggerOptions(Configuration);
+            SwaggerOptions = new SwaggerOptions(Configuration);
 
         }
 
-        public SwaggerOptions SwaggerOptions { get;}
+        public SwaggerOptions SwaggerOptions { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(option =>
+            {
+                option.ReturnHttpNotAcceptable = true;
+            });
             #region Swagger
 
             services.AddSwaggerGen(options =>
@@ -81,6 +89,27 @@ namespace YourSoul4Christ.App.API
             });
             #endregion
 
+            services.AddEntityFrameworkSqlite().AddDbContext<AppDbContext>();
+
+
+            //services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<AppDbContext>();
+            //services.AddIdentityServer().AddApiAuthorization<AppUser, AppDbContext>();
+            //services.AddAuthentication().AddIdentityServerJwt();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                });
+            });
+
+            services.AddResponseCaching();
+            services.AddResponseCompression();
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            });
             services.AddScoped<IVerseClient, VerseClient>();
         }
 
@@ -95,9 +124,24 @@ namespace YourSoul4Christ.App.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("EnableCORS");
             app.UseAuthorization();
+            app.UseResponseCaching();
 
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(10)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+                await next();
+            });
+            app.UseResponseCompression();
             app.UseSwagger(options =>
             {
                 options.RouteTemplate = SwaggerOptions.JsonRoute;

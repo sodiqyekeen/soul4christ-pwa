@@ -1,5 +1,36 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@inject AppService AppService
 
-<h1>Hello, world!</h1>
+@if(verseForToday != null)
+{
+    <VerseCard Verse="verseForToday" Title="VERSE OF THE DAY" />
+}
 
-Welcome to your new app.
+
+@code{ 
+    private Verse verseForToday;
+    protected async override Task OnInitializedAsync()
+    {
+        verseForToday = await AppService.GetVerseForToday();
+        _ = RequestNotificationSubscriptionAsync();
+    }
+
+    async Task RequestNotificationSubscriptionAsync()
+    {
+        var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazorPushNotifications.requestSubscription");
+        if (subscription != null)
+        {
+            try
+            {
+                var response = await Http.PutAsJsonAsync("notifications/subscribe", subscription);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                //ex.Redirect();
+            }
+        }
+    }
+}

@@ -1,15 +1,49 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JsRuntime
 
-<div class="sidebar">
-    <NavMenu />
+
+<div id="wrapper" class="@NavMenuCssClass">
+    <NavMenu OnNavbarClicked="ToggleNavMenu" />
+    <header class="topbar-nav">
+        <TopNavBar OnToggleClicked="ToggleNavMenu" />
+    </header>
+
+    <div class="clearfix"></div>
+
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            @Body
+        </div>
+    </div>
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+
+    @*<footer class="footer">
+            <div class="container">
+                <div class="text-center">
+                    Copyright © 2018 Dashtreme Admin
+                </div>
+            </div>
+        </footer>*@
+
+    <div class="right-sidebar">
+        @*<ThemeSetting />*@
+    </div>
 </div>
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-    </div>
+@code{
+    private bool collapseNavMenu = true;
 
-    <div class="content px-4">
-        @Body
-    </div>
-</div>
+    private string NavMenuCssClass => collapseNavMenu ? null : "toggled";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+        //await JsRuntime.InvokeVoidAsync("handleToggle");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JsRuntime.InvokeVoidAsync("onBlazorReady");
+    }
+}

@@ -1,0 +1,25 @@
+﻿
+@if (Verse != null)
+{
+    <div class="card">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <div class="card-header text-center">
+                <h3>@Title</h3>
+            </div>
+        }
+        <div class="card-body">
+            <h4 class="card-title text-center"> @Verse.Date.ToString("dd/MM/yyyy")</h4>
+            <p class="card-text text-justify">@Verse.Content</p>
+            <p class="card-text text-right"><strong>@Verse.Book</strong></p>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Verse Verse { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+}
