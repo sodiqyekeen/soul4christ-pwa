@@ -1,19 +1,37 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>YourSoul4Christ.App.Client</title>
+    <title>YOURSOUL4CHRIST</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="css/icons.css" rel="stylesheet" type="text/css" />
+
+
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+    <!--<link href="css/app.css" rel="stylesheet" />-->
+    <link href="css/sidebar-menu.css" rel="stylesheet" />
+
+    <link href="css/app-style.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
 </head>
 
-<body>
-    <app>Loading...</app>
+<body class="bg-theme bg-theme1">
+
+    <app>
+        <div id="overlay">
+            <div class="loader">
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </app>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -21,6 +39,17 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="pushNotification.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- sidebar-menu js -->
+    <script src="js/sidebar-menu.js"></script>
+    <!-- Custom scripts -->
+    <script src="js/app-script.js"></script>
+
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 

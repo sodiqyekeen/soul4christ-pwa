@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YourSoul4CHrist.App.Shared.Entities;
+using YourSoul4Christ.App.Shared.Entities;
 
-namespace YourSoul4CHrist.App.Shared.Models
+namespace YourSoul4Christ.App.Shared.Models
 {
     public class Verses:List<Verse>
     {

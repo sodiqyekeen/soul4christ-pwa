@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourSoul4Christ.App.Client", "YourSoul4Christ.App.Client\YourSoul4Christ.App.Client.csproj", "{A95D50B3-1BB8-4F14-99C5-65B0F88C4049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourSoul4Christ.App.Client", "YourSoul4Christ.App.Client\YourSoul4Christ.App.Client.csproj", "{A95D50B3-1BB8-4F14-99C5-65B0F88C4049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourSoul4Christ.App.API", "YourSoul4Christ.App.API\YourSoul4Christ.App.API.csproj", "{0633008A-C53D-469F-9A77-EEC921B0BFD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourSoul4Christ.App.API", "YourSoul4Christ.App.API\YourSoul4Christ.App.API.csproj", "{0633008A-C53D-469F-9A77-EEC921B0BFD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourSoul4CHrist.App.Shared", "YourSoul4CHrist.App.Shared\YourSoul4CHrist.App.Shared.csproj", "{03A1BDE4-F5F2-4BA6-B5EC-1B700B711DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourSoul4Christ.App.Shared", "YourSoul4CHrist.App.Shared\YourSoul4Christ.App.Shared.csproj", "{03A1BDE4-F5F2-4BA6-B5EC-1B700B711DC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

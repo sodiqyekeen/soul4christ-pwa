@@ -1,12 +1,8 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace YourSoul4Christ.App.Client
 {
@@ -18,7 +14,10 @@ namespace YourSoul4Christ.App.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddHttpClient<AppService>(client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
+            });
             await builder.Build().RunAsync();
         }
     }

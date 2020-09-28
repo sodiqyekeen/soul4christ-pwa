@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace YourSoul4CHrist.App.Shared.Models
+namespace YourSoul4Christ.App.Shared.Models
 {
     public class VerseOfDay
     {
