@@ -7,7 +7,7 @@ const gulp = require("gulp"),
   uglify = require("gulp-uglify");
 
 const paths = {
-  webroot: "/YourSoul4Christ.App/YourSoul4Christ.App.Client/wwwroot",
+  webroot: "YourSoul4Christ.App/YourSoul4Christ.App.Client/wwwroot",
 };
 
 paths.js = paths.webroot + "js/**/*.js";
