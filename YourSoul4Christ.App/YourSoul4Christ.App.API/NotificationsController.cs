@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YourSoul4Christ.App.Entities;
 
@@ -17,6 +18,7 @@ namespace YourSoul4Christ.App.API
         }
 
         [HttpPut("subscribe")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<NotificationSubscription> Subscribe(NotificationSubscription subscription)
         {
             // We're storing at most one subscription per user, so delete old ones.
