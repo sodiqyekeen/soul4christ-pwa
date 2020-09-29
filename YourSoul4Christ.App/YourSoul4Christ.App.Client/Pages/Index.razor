@@ -14,7 +14,13 @@
     private Verse verseForToday;
     protected async override Task OnInitializedAsync()
     {
-        verseForToday = await GetVerseForToday();
+        try
+        {
+            verseForToday = await GetVerseForToday();
+        }
+        catch (Exception)
+        {
+        }
         _ = RequestNotificationSubscriptionAsync();
     }
 

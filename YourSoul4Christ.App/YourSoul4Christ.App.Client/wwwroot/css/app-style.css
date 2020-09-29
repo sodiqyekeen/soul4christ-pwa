@@ -4159,3 +4159,9 @@ table.grid {
     animation-fill-mode: both;
     animation-name: fadeInDown;
 }
+
+@media screen and (min-width: 500px) {
+    #share-buttons {
+        display: none
+    }
+} 
