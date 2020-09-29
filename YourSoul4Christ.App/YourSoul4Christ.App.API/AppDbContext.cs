@@ -18,6 +18,6 @@ namespace YourSoul4Christ.App.API
         public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(configuration.GetConnectionString("AppDbConnectionString"));
+            => options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
     }
 }
