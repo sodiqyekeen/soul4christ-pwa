@@ -1,7 +1,54 @@
 ﻿@page "/verses"
+@inject HttpClient Http
+@inject AppService AppService
 
-<VerseGroup />
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p>@errorMessage</p>
+}
+else if (verses == null)
+{
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <VerseGroup Verses="verses"/>
+}
+
 
 @code {
+    private Verse[] verses;
+    private string errorMessage;
 
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            verses = (await GetVerses()).ToArray();
+        }
+        catch (Exception)
+        {
+            errorMessage = "An error occurred while loading data...";
+        }
+    }
+
+    private async Task<IEnumerable<Verse>> GetVerses()
+    {
+        if(await localStorage.ContainKeyAsync("_verses_"))
+        {
+            return await localStorage.GetItemAsync<IEnumerable<Verse>>("_verses_");
+        }
+        else
+        {
+            var verses = await AppService.GetVerses();
+            await localStorage.SetItemAsync("_verses_", verses);
+            return verses;
+        }
+    }
 }
