@@ -25,10 +25,10 @@ jobs:
           dotnet-version: 3.1.201
 
       - name: Build app with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build  YourSoul4Christ.App/YourSoul4Christ.App.Client --configuration Release
 
       - name: Publish the client app
-        run: dotnet publish --configuration Release
+        run: dotnet publish  YourSoul4Christ.App/YourSoul4Christ.App.Client --configuration Release
 
       - name: Build And Deploy
         id: builddeploy
