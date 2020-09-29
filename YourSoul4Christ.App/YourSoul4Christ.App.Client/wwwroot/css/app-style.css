@@ -3030,7 +3030,7 @@ table.grid {
 }
 
 .bg-dark {
-    background-color: #000000 !important;
+    background-color: rgba(0, 0, 0, 0.90) !important;
 }
 
 .bg-dark-light {

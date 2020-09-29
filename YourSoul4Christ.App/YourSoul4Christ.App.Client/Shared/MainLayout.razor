@@ -10,7 +10,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="content-wrapper">
+    <div class="content-wrapper" @onclick="HandleBodyClick">
         <div class="container-fluid">
             @Body
         </div>
@@ -38,7 +38,14 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-        //await JsRuntime.InvokeVoidAsync("handleToggle");
+    }
+
+    private void HandleBodyClick()
+    {
+        if (NavMenuCssClass.Equals("toggled"))
+        {
+            collapseNavMenu = true;
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
