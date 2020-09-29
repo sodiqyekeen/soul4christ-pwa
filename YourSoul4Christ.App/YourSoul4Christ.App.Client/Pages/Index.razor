@@ -2,18 +2,19 @@
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
 @inject AppService AppService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
-@if(verseForToday != null)
+@if (verseForToday != null)
 {
     <VerseCard Verse="verseForToday" Title="VERSE OF THE DAY" />
 }
 
 
-@code{ 
+@code{
     private Verse verseForToday;
     protected async override Task OnInitializedAsync()
     {
-        verseForToday = await AppService.GetVerseForToday();
+        verseForToday = await GetVerseForToday();
         _ = RequestNotificationSubscriptionAsync();
     }
 
@@ -27,10 +28,25 @@
                 var response = await Http.PutAsJsonAsync("notifications/subscribe", subscription);
                 response.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //ex.Redirect();
             }
+        }
+    }
+
+    private async Task<Verse> GetVerseForToday()
+    {
+        string key = $"_versefortoday_{DateTime.Now:ddMMyyy}";
+        if (await localStorage.ContainKeyAsync(key))
+        {
+            return await localStorage.GetItemAsync<Verse>(key);
+        }
+        else
+        {
+            var verses = await AppService.GetVerseForToday();
+            await localStorage.SetItemAsync(key, verses);
+            return verses;
         }
     }
 }
