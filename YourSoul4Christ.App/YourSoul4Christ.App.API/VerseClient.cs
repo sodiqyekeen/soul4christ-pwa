@@ -21,6 +21,9 @@ namespace YourSoul4Christ.App.API.Services
 
         public async Task<Verse> AddVerse(CreateVerseViewModel verse)
         {
+            if (await db.Verses.AnyAsync(v => v.Book == verse.Book && v.Date.Year == DateTime.Now.Year))
+                return null;
+
             var _verse = new Verse
             {
                 Book = verse.Book,
@@ -77,5 +80,10 @@ namespace YourSoul4Christ.App.API.Services
         public async Task<Verse> GetVerseForToday() =>
             await db.Verses.Where(v => v.Date.Date == DateTime.Now.Date).FirstOrDefaultAsync();
 
+        public async Task DeleteVerse(Verse verse)
+        {
+            db.Verses.Remove(verse);
+            await db.SaveChangesAsync();
+        }
     }
 }
