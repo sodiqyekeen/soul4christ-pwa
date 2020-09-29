@@ -17,6 +17,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Data\verses.json" />
   </ItemGroup>
 
@@ -37,10 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YourSoul4CHrist.App.Shared\YourSoul4Christ.App.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 

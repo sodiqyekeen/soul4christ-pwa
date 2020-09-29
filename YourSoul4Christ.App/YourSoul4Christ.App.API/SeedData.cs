@@ -20,7 +20,7 @@ namespace YourSoul4Christ.App.API
                     Book = v.Book,
                     Content = v.Content,
                     Date = v.Date
-                }).ToList();
+                }).ToList().OrderBy(v => v.Date);
 
             db.Verses.AddRange(verses);
             db.SaveChanges();

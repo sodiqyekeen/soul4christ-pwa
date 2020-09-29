@@ -89,8 +89,8 @@ namespace YourSoul4Christ.App.API
             });
             #endregion
 
-            services.AddEntityFrameworkSqlite().AddDbContext<AppDbContext>();
-
+            //services.AddEntityFrameworkSqlite().AddDbContext<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options =>options.UseSqlite(Configuration.GetConnectionString("DefaultSQLiteConnection")));
 
             //services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<AppDbContext>();
             //services.AddIdentityServer().AddApiAuthorization<AppUser, AppDbContext>();
