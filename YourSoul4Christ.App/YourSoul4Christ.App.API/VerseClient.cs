@@ -54,12 +54,12 @@ namespace YourSoul4Christ.App.API.Services
         private static async Task SendNotificationAsync(Verse verse, List<NotificationSubscription> subscriptions, string message)
         {
             // For a real application, generate your own
-            var publicKey = "BLC8GOevkjdfkhkhdsfClQjyghgf6Cq_a7wJZlstGTVZvwGFFHMYfXt6Njyvgx_GlXJeo5cSiZ1y4JOx1o";
-            var privateKey = "OrubzSz3yWACscZXjFQrrtDwCKg-TGFuWhluQ2wLXDo";
+            var publicKey = "BHDzb6V8wUPHTgj4JlHSPdfmoVuJwWcakIby1fsyBYGGU6Bh4H8MiUR1GBtezqc2U1NU6izvm0maKcF15sTZgo4";
+            var privateKey = "JOr7vJeI3wPkNb_qUMg-U25pjTAkM9bXQ6337vTrwu4";
             foreach (var subscription in subscriptions)
             {
                 var pushSubscription = new PushSubscription(subscription.Url, subscription.P256dh, subscription.Auth);
-                var vapidDetails = new VapidDetails("mailto:<someone@example.com>", publicKey, privateKey);
+                var vapidDetails = new VapidDetails("mailto:yoursoul4christ@gmail.com", publicKey, privateKey);
                 var webPushClient = new WebPushClient();
                 try
                 {
