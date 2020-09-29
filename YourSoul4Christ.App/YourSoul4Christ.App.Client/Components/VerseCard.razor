@@ -13,6 +13,12 @@
             <p class="card-text text-justify">@Verse.Content</p>
             <p class="card-text text-right"><strong>@Verse.Book</strong></p>
         </div>
+        <div id="share-buttons" class="card-footer">
+            <span>Share: </span>
+            <a class="float-right" href="whatsapp://send?@shareText" data-action="share/whatsapp/share" target="_blank">
+                <img style="width:25px; border-radius:25px;" src="/images/whatsapp-icon.png" />
+            </a>
+        </div>
     </div>
 }
 
@@ -22,4 +28,9 @@
 
     [Parameter]
     public string Title { get; set; }
+
+    private string shareText => $"*YOURSOUL4CHRIST*{Environment.NewLine}{Environment.NewLine}" +
+            $" Verse of the Day - {Verse.Date:dd/MM/yyyy}{Environment.NewLine}{Environment.NewLine}" +
+            $"{Verse.Content}{Environment.NewLine}{Environment.NewLine}" +
+            $"_{Verse.Book}_";
 }

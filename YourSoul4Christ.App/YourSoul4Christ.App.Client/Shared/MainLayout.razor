@@ -42,7 +42,7 @@
 
     private void HandleBodyClick()
     {
-        if (NavMenuCssClass.Equals("toggled"))
+        if (!string.IsNullOrEmpty(NavMenuCssClass) && NavMenuCssClass.Equals("toggled"))
         {
             collapseNavMenu = true;
         }
