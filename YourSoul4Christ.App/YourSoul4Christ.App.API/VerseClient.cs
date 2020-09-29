@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebPush;
-using YourSoul4Christ.App.Shared.Entities;
-using YourSoul4Christ.App.Shared.Models;
+using YourSoul4Christ.App.Entities;
+using YourSoul4Christ.App.Models;
 
 namespace YourSoul4Christ.App.API.Services
 {

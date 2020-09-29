@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using YourSoul4Christ.App.Shared.Entities;
+using YourSoul4Christ.App.Models;
 
 namespace YourSoul4Christ.App.Client
 {

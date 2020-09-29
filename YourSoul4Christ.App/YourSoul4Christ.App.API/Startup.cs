@@ -1,22 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using YourSoul4Christ.App.API.Helpers;
 using YourSoul4Christ.App.API.Services;
@@ -89,12 +82,7 @@ namespace YourSoul4Christ.App.API
             });
             #endregion
 
-            //services.AddEntityFrameworkSqlite().AddDbContext<AppDbContext>();
             services.AddDbContext<AppDbContext>(options =>options.UseSqlite(Configuration.GetConnectionString("DefaultSQLiteConnection")));
-
-            //services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<AppDbContext>();
-            //services.AddIdentityServer().AddApiAuthorization<AppUser, AppDbContext>();
-            //services.AddAuthentication().AddIdentityServerJwt();
 
             services.AddCors(options =>
             {

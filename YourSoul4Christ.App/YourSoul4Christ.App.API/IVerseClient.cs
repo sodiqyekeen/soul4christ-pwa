@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using YourSoul4Christ.App.Shared.Entities;
-using YourSoul4Christ.App.Shared.Models;
+using YourSoul4Christ.App.Entities;
+using YourSoul4Christ.App.Models;
 
 namespace YourSoul4Christ.App.API.Services
 {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using YourSoul4Christ.App.Shared.Entities;
+using YourSoul4Christ.App.Entities;
 
 namespace YourSoul4Christ.App.API
 {

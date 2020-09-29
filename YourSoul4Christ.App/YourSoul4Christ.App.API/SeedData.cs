@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using YourSoul4Christ.App.Shared.Entities;
+using YourSoul4Christ.App.Entities;
 
 namespace YourSoul4Christ.App.API
 {

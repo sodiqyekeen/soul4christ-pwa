@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using YourSoul4Christ.App.API.Services;
-using YourSoul4Christ.App.Shared.Entities;
-using YourSoul4Christ.App.Shared.Models;
+using YourSoul4Christ.App.Entities;
+using YourSoul4Christ.App.Models;
 
 namespace YourSoul4Christ.App.API.Controllers
 {
