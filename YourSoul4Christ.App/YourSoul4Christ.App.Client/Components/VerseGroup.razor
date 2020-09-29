@@ -1,42 +1,15 @@
-﻿@inject HttpClient Http
-@inject AppService AppService
-
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <p>@errorMessage</p>
-}
-else if (verses == null)
-{
-    <div class="text-center">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+﻿<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var verse in Verses)
+    {
+        <div class="col-md-4 mb-4">
+            <VerseCard Verse="verse"/>
         </div>
-    </div>
-}
-else
-{
-    <div class="card-columns">
-        @foreach (var verse in verses)
-        {
-            <VerseCard Verse="verse" />
-        }
-    </div>
-}
+    }
+</div>
+
 
 @code {
-    private Verse[] verses;
-    private string errorMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            verses = (await AppService.GetVerses()).ToArray();
-        }
-        catch (Exception)
-        {
-            errorMessage = "An error occurred while loading data...";
-        }
-    }
+    [Parameter]
+    public IEnumerable<Verse> Verses { get; set; }
 
 }
