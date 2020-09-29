@@ -55,11 +55,10 @@ namespace YourSoul4Christ.App.API.Controllers
 
         [HttpGet("today")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Verse>> GetVerseForToday()
         {
             var verse = await verseClient.GetVerseForToday();
-            return verse == null ? NotFound() : (ActionResult<Verse>)Ok(verse);
+            return Ok(verse);
         }
 
         [HttpDelete("id")]

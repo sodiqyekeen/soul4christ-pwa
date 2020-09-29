@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using YourSoul4Christ.App.Models;
 
 namespace YourSoul4Christ.App.Client
@@ -25,7 +25,7 @@ namespace YourSoul4Christ.App.Client
             if (response.IsSuccessStatusCode)
             {
                 var verse = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<Verse>(verse);
+                return JsonConvert.DeserializeObject<Verse>(verse);
             }
             return null;
         }

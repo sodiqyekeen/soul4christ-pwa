@@ -17,6 +17,7 @@ namespace YourSoul4Christ.App.Client
             builder.Services.AddScoped(sp
                 => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
                 .AddBlazoredLocalStorage();
+
             builder.Services.AddHttpClient<AppService>(client =>
             {
                 client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
