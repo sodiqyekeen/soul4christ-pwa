@@ -29,8 +29,8 @@
     [Parameter]
     public string Title { get; set; }
 
-    private string shareText => $"*YOURSOUL4CHRIST*{Environment.NewLine}{Environment.NewLine}" +
+    private string shareText => $"YOURSOUL4CHRIST{Environment.NewLine}{Environment.NewLine}" +
             $" Verse of the Day - {Verse.Date:dd/MM/yyyy}{Environment.NewLine}{Environment.NewLine}" +
             $"{Verse.Content}{Environment.NewLine}{Environment.NewLine}" +
-            $"_{Verse.Book}_";
+            $"{Verse.Book}";
 }
