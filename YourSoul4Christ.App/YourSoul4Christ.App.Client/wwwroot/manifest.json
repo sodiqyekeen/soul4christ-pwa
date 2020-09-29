@@ -1,10 +1,12 @@
 {
-  "name": "YOURSOUL4CHRIST",
-  "short_name": "YOURSOUL4CHRIST",
-  "start_url": "./",
+  "name": "SOUL4CHRIST",
+  "short_name": "SOUL4CHRIST",
+  "start_url": "/",
+  "scope": "",
+  "version": "0.0.1",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#03173d",
+  "theme_color": "#053287",
   "icons": [
     {
       "src": "icon-512.png",
