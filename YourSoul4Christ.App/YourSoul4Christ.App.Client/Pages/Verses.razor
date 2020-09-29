@@ -18,7 +18,7 @@ else if (verses == null)
 }
 else
 {
-    <VerseGroup Verses="verses"/>
+    <VerseGroup Verses="verses" />
 }
 
 
@@ -40,14 +40,15 @@ else
 
     private async Task<IEnumerable<Verse>> GetVerses()
     {
-        if(await localStorage.ContainKeyAsync("_verses_"))
+        if (await localStorage.ContainKeyAsync("_verses_"))
         {
             return await localStorage.GetItemAsync<IEnumerable<Verse>>("_verses_");
         }
         else
         {
             var verses = await AppService.GetVerses();
-            await localStorage.SetItemAsync("_verses_", verses);
+            if (verses != null)
+                await localStorage.SetItemAsync("_verses_", verses);
             return verses;
         }
     }

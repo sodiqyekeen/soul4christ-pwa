@@ -44,9 +44,10 @@
         }
         else
         {
-            var verses = await AppService.GetVerseForToday();
-            await localStorage.SetItemAsync(key, verses);
-            return verses;
+            var verse = await AppService.GetVerseForToday();
+            if (verse != null)
+                await localStorage.SetItemAsync(key, verse);
+            return verse;
         }
     }
 }
