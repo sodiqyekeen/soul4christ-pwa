@@ -15,8 +15,9 @@
         </div>
         <div id="share-buttons" class="card-footer">
             <span>Share: </span>
-            <a class="float-right" href="whatsapp://send?@shareText" data-action="share/whatsapp/share" target="_blank">
-                <img style="width:25px; border-radius:25px;" src="/images/whatsapp-icon.png" />
+            @*<a alt="Whatsapp" href="whatsapp://send" data-text="Text to share" data-href="http://example.com/url-to-share" class=" float-right whatsapp wa_btn"><span class="zmdi zmdi-whatsapp"></span> Whatsapp</a>*@
+            <a class="float-right" href="whatsapp://send?text=@shareText" data-action="share/whatsapp/share" target="_blank">
+                <span class="zmdi zmdi-whatsapp"></span> Whatsapp
             </a>
         </div>
     </div>
@@ -30,7 +31,7 @@
     public string Title { get; set; }
 
     private string shareText => $"YOURSOUL4CHRIST{Environment.NewLine}{Environment.NewLine}" +
-            $" Verse of the Day - {Verse.Date:dd/MM/yyyy}{Environment.NewLine}{Environment.NewLine}" +
+            $"*Verse of the Day* - {Verse.Date:dd/MM/yyyy}{Environment.NewLine}{Environment.NewLine}" +
             $"{Verse.Content}{Environment.NewLine}{Environment.NewLine}" +
-            $"{Verse.Book}";
+            $"_{Verse.Book}_";
 }
