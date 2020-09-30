@@ -4181,3 +4181,9 @@ table.grid {
     .whatsapp.activeWhatsapp {
         display: inline-block;
     }
+
+.verse-card {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+}
