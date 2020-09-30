@@ -30,7 +30,7 @@ else
     {
         try
         {
-            verses = (await GetVerses()).ToArray();
+            verses = (await AppService.GetVerses()).ToArray();
         }
         catch (Exception)
         {
