@@ -1,4 +1,5 @@
 ﻿@page "/"
+@*@page "/index"*@
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
 @inject AppService AppService
@@ -16,30 +17,32 @@
     {
         try
         {
-            verseForToday = await AppService.GetVerseForToday();
+            verseForToday = await AppService.GetLatestVerse();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.Error.WriteLine(e.Message);
+            Console.Error.WriteLine(e.ToString());
         }
-        _ = RequestNotificationSubscriptionAsync();
+        //_ = RequestNotificationSubscriptionAsync();
     }
 
-    async Task RequestNotificationSubscriptionAsync()
-    {
-        var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazorPushNotifications.requestSubscription");
-        if (subscription != null)
-        {
-            try
-            {
-                var response = await Http.PutAsJsonAsync("notifications/subscribe", subscription);
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception)
-            {
-                //ex.Redirect();
-            }
-        }
-    }
+    //async Task RequestNotificationSubscriptionAsync()
+    //{
+    //    var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazorPushNotifications.requestSubscription");
+    //    if (subscription != null)
+    //    {
+    //        try
+    //        {
+    //            var response = await Http.PutAsJsonAsync("notifications/subscribe", subscription);
+    //            response.EnsureSuccessStatusCode();
+    //        }
+    //        catch (Exception)
+    //        {
+    //            //ex.Redirect();
+    //        }
+    //    }
+    //}
 
     private async Task<Verse> GetVerseForToday()
     {

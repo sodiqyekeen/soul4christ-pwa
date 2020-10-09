@@ -1,0 +1,29 @@
+﻿@page "/verses/{verseId}"
+@inject AppService AppService
+
+@if (verse != null)
+{
+    <h3>@verse.Book</h3>
+}
+
+@code {
+    [Parameter] public string VerseId { get; set; }
+    Verse verse;
+    bool invalidVerse;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            verse = await AppService.GetVerseById(VerseId);
+            if (verse is null)
+                invalidVerse = true;
+        }
+        catch (Exception e)
+        {
+            Console.Error.WriteLine(e.ToString());
+        }
+
+    }
+
+}

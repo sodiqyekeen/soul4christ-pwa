@@ -1,9 +1,7 @@
 {
   "name": "Souls For Christ Ministry",
   "short_name": "SOUL4CHRIST",
-  "start_url": "/",
-  "scope": "/",
-  "version": "0.0.1",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#053287",

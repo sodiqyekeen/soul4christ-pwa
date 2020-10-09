@@ -1,55 +1,91 @@
-﻿@page "/verses"
-@inject HttpClient Http
+﻿@page "/verses/{year:int}/{month:int}"
+
 @inject AppService AppService
 
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
-
-@if (!string.IsNullOrEmpty(errorMessage))
+@if (verses == null)
 {
-    <p>@errorMessage</p>
-}
-else if (verses == null)
-{
-    <div class="text-center">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+    <div style="height:100%;">
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
+    </div>
+}
+else if (!verses.Any())
+{
+    <div class="row">
+        <p>No record found.</p>
     </div>
 }
 else
 {
-    <VerseGroup Verses="verses" />
+    <div class="row">
+        <VerseGroup Verses="verses" />
+    </div>
 }
 
 
-@code {
-    private Verse[] verses;
-    private string errorMessage;
 
-    protected override async Task OnInitializedAsync()
+
+@code {
+    [Parameter] public int Year { get; set; }
+    [Parameter] public int Month { get; set; }
+    private Verse[] verses;
+    //private PaginatedList<Verse> verses;
+    //private bool isFormSubmitted = false;
+    private PagingOptions pagingOptions = new PagingOptions();
+
+
+    protected override async Task OnParametersSetAsync()
     {
         try
         {
-            verses = (await AppService.GetVerses()).ToArray();
+            verses = (await AppService.GetVerseByDate(Year, Month)).ToArray();
+            //verses = await AppService.GetPaginatedVersesByDate(pagingOptions, Year, Month);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            errorMessage = "An error occurred while loading data...";
+            Console.Error.WriteLine(e.Message);
+            Console.Error.WriteLine(e.ToString());
         }
     }
 
-    private async Task<IEnumerable<Verse>> GetVerses()
-    {
-        if (await localStorage.ContainKeyAsync("_verses_"))
-        {
-            return await localStorage.GetItemAsync<IEnumerable<Verse>>("_verses_");
-        }
-        else
-        {
-            var verses = await AppService.GetVerses();
-            if (verses != null)
-                await localStorage.SetItemAsync("_verses_", verses);
-            return verses;
-        }
-    }
+    //private async Task GetVerses(LoadVerseForm form)
+    //{
+    //    isFormSubmitted = true;
+    //    verses = (await AppService.GetVerseByDate(form)).ToArray();
+    //}
+
+    //private async Task Previous()
+    //{
+    //    if (verses.HasPreviousPage)
+    //    {
+    //        pagingOptions.Index -= 1;
+    //        verses = await GetVersesAsync(pagingOptions);
+    //    }
+    //}
+
+    //private async Task ChangeIndex(int index)
+    //{
+    //    if (index > 0 && index < verses.TotalPages)
+    //    {
+    //        pagingOptions.Index = index;
+    //        verses = await GetVersesAsync(pagingOptions);
+    //    }
+    //}
+
+    //private async Task Next()
+    //{
+    //    if (verses.HasNextPage)
+    //    {
+    //        pagingOptions.Index += 1;
+    //        verses = await GetVersesAsync(pagingOptions);
+    //    }
+    //}
+
+    //private async Task<PaginatedList<Verse>> GetVersesAsync(PagingOptions pagingOptions)
+    //    => await AppService.GetPaginatedVersesByDate(pagingOptions, Year, Month);
+
+
 }

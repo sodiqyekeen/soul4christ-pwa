@@ -1,0 +1,13 @@
+﻿@page "/select-period"
+@inject NavigationManager NavigationManager
+
+<LoadVerseDialog OnFormSubmitted="ShowVerses"/>
+
+@code {
+
+    private void ShowVerses(LoadVerseForm form)
+    {
+        NavigationManager.NavigateTo($"/verses/{form.Year}/{form.Month}");
+    }
+
+}

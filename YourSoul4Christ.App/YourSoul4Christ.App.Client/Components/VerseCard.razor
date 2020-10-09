@@ -1,26 +1,33 @@
-﻿
+﻿@inject IJSRuntime JSRuntime
 @if (Verse != null)
 {
-    <div class="card h-100 verse-card">
-        @if (!string.IsNullOrEmpty(Title))
+<div class="card h-100 verse-card">
+    @if (!string.IsNullOrEmpty(Title))
         {
-            <div class="card-header text-center">
-                <h3>@Title</h3>
-            </div>
-        }
-        <div class="card-body">
-            <h4 class="card-title text-center"> @Verse.Date.ToString("dd/MM/yyyy")</h4>
-            <p class="card-text text-justify">@Verse.Content</p>
-            <p class="card-text text-right"><strong>@Verse.Book</strong></p>
-        </div>
-        <div id="share-buttons" class="card-footer">
-            <span>Share: </span>
-            @*<a alt="Whatsapp" href="whatsapp://send" data-text="Text to share" data-href="http://example.com/url-to-share" class=" float-right whatsapp wa_btn"><span class="zmdi zmdi-whatsapp"></span> Whatsapp</a>*@
-            <a class="float-right" href="whatsapp://send?text=@shareText" data-action="share/whatsapp/share" target="_blank">
-                <span class="zmdi zmdi-whatsapp"></span> Whatsapp
-            </a>
-        </div>
+    <div class="card-header text-center">
+        <h3>@Title</h3>
     </div>
+        }
+    <div class="card-body">
+        <h4 class="card-title text-center"> @Verse.Date.ToString("dd/MM/yyyy")</h4>
+        <p class="card-text text-justify">@Verse.Content</p>
+        <p class="card-text text-right"><strong>@Verse.Book </strong></p>
+        <p class="card-text text-right"><strong>@*<a href="verses/@Verse.Date.ToString("ddMMyyyy")">@Verse.Book</a>*@ </strong></p>
+    </div>
+    <div id="share-buttons" class="card-footer">
+        <span>Share: </span>
+        @*<a alt="Whatsapp" href="whatsapp://send" data-text="Text to share" data-href="http://example.com/url-to-share" class=" float-right whatsapp wa_btn"><span class="zmdi zmdi-whatsapp"></span> Whatsapp</a>*@
+        <a class="float-right mr-3" @onclick="CopyToClipboard">
+            <span>Copy</span>
+        </a>
+        <a class="float-right mr-3" href="whatsapp://send?text=@whatsappShareText" data-action="share/whatsapp/share" target="_blank">
+            <span class="zmdi zmdi-whatsapp"></span>
+        </a>
+        <a class="float-right mr-3" href="http://twitter.com/share?text=@otherShareText" target="_blank">
+            <span class="zmdi zmdi-twitter"></span>
+        </a>
+    </div>
+</div>
 }
 
 @code {
@@ -30,8 +37,28 @@
     [Parameter]
     public string Title { get; set; }
 
-    private string shareText => $"YOURSOUL4CHRIST%0a%0a" +
+    //private string copyText => $"&p[title]=YOURSOUL4CHRIST%0a%0a" +
+    //        $"Verse of the Day - {Verse.Date:dd/MM/yyyy} %0a%0a" +
+    //        $"&p[summary]={Verse.Content}%0a%0a" +
+    //        $"{Verse.Book}";
+
+    private string whatsappShareText => $"YOURSOUL4CHRIST%0a%0a" +
             $"*Verse of the Day - {Verse.Date:dd/MM/yyyy}* %0a%0a" +
             $"{Verse.Content}%0a%0a" +
             $"_{Verse.Book}_";
+
+    private string otherShareText => $"YOURSOUL4CHRIST%0a%0a" +
+        $"Verse of the Day - {Verse.Date:dd/MM/yyyy} %0a%0a" +
+        $"{Verse.Content}%0a%0a" +
+        $"{Verse.Book}";
+
+    private string copyText => $"YOURSOUL4CHRIST\n\n" +
+        $"Verse of the Day - {Verse.Date:dd/MM/yyyy} \n\n" +
+        $"{Verse.Content}\n\n" +
+        $"{Verse.Book}";
+
+    private async Task CopyToClipboard()
+    {
+        await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", copyText);
+    }
 }

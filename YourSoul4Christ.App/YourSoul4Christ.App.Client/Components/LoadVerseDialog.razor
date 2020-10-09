@@ -1,0 +1,44 @@
+﻿@using System.Globalization
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Select Period</h4>
+    </div>
+    <div class="card-body">
+        <EditForm Model="form" OnValidSubmit="FormSubmitted">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="row">
+                <div class="col">
+                    <select @bind-value="form.Year" @bind-value:event="onchange"  class="form-control">
+                        <option value="">Year</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <select @bind-value="form.Month" @bind-value:event="onchange" class="form-control">
+                        <option value="">Month</option>
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <option value="@i">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Load</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private LoadVerseForm form = new LoadVerseForm();
+
+    [Parameter] public EventCallback<LoadVerseForm> OnFormSubmitted { get; set; }
+
+    private async Task FormSubmitted()
+    {
+        await OnFormSubmitted.InvokeAsync(form);
+    }
+
+}

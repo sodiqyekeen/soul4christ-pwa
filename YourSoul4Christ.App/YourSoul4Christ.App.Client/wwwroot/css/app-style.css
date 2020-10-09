@@ -604,6 +604,7 @@ body.bg-theme15 {
 }
 
 .toggle-menu i {
+    display: none;
     margin-left: 250px;
     font-size: 14px;
     font-weight: 600;
@@ -3912,6 +3913,7 @@ table.grid {
     }
 
     .toggle-menu i {
+        display: block;
         line-height: 60px;
         margin-left: 0px;
         font-size: 15px;
