@@ -9,15 +9,13 @@
 @code {
     [Parameter] public string VerseId { get; set; }
     Verse verse;
-    bool invalidVerse;
 
     protected override async Task OnParametersSetAsync()
     {
         try
         {
             verse = await AppService.GetVerseById(VerseId);
-            if (verse is null)
-                invalidVerse = true;
+            
         }
         catch (Exception e)
         {

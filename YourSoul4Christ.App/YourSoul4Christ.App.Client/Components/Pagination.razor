@@ -1,9 +1,12 @@
-﻿<div class="row">
-    @*<div class="col-md-6 float-left"> Showing @verses.CurrentPageStartIndex to @verses.CurrentPageLastIndex of @verses.TotalRecords</div>
-    <div class="col-md-6 ">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                @if (verses.HasPreviousPage)
+﻿@typeparam TITem
+@inject IJSRuntime JSRuntime
+
+<div class="row">
+    @*<div class="col-md-6 float-left"><p>Showing @Items.CurrentPageStartIndex to @Items.CurrentPageLastIndex of @Items.TotalRecords</p></div>*@
+    <div class="col">
+        <nav aria-label="Navigation">
+            <ul class="pagination justify-content-center">
+                @if (Items.HasPreviousPage)
                 {
                     <li class="page-item">
                         <a class="page-link" @onclick="Previous" aria-label="Previous">
@@ -12,29 +15,17 @@
                     </li>
                 }
 
-                <li class="page-item @prev">
-                    <a class="page-link" @onclick="@(async () => await ChangeIndex(1))" aria-label="Previous">
-                        <span aria-hidden="true">1</span>
-                    </a>
-                </li>
-
-
-                @for (int i = 1; i <= 3; i++)
+                @for (int i = 1; i <= Items.TotalPages; i++)
                 {
-                    int val = verses.CurrentPage + i;
-                    if (val < verses.TotalPages - 1)
-                    {
-                        <li class="page-item"><a class="page-link" @onclick="@(async () => await ChangeIndex(val))">@val</a></li>
-                    }
+                    int index = i;
+                    <li class="page-item @(i == Items.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="javaScript:void();" @onclick="@(() => GotoPage(index))">@i</a>
+                    </li>
                 }
-                <li class="page-item">
-                    <a class="page-link" @onclick="@(async () => await ChangeIndex(verses.TotalPages))" aria-label="Next">
-                        <span aria-hidden="true">@verses.TotalPages</span>
-                    </a>
-                </li>
-                @if (verses.HasNextPage)
+
+                @if (Items.HasNextPage)
                 {
-                    <li class="page-item @next">
+                    <li class="page-item ">
                         <a class="page-link" @onclick="Next" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
@@ -42,10 +33,29 @@
                 }
             </ul>
         </nav>
-    </div>*@
+    </div>
 </div>
 
 @code {
-    //private string prev => verses.HasPreviousPage ? "" : "disabled";
-    //private string next => verses.HasNextPage ? "" : "disabled";
+    [Parameter] public PaginatedList<TITem> Items { get; set; }
+    [Parameter] public EventCallback<int> OnChangeIndex { get; set; }
+
+    private int pageIndex = 1;
+
+    private async Task Previous()
+    {
+        if (Items.HasPreviousPage)
+            await OnChangeIndex.InvokeAsync(--pageIndex);
+    }
+
+    private async Task GotoPage(int pageIndex)
+    {
+        await JSRuntime.InvokeVoidAsync($"console.log", pageIndex);
+        await OnChangeIndex.InvokeAsync(pageIndex);
+    }
+    private async Task Next()
+    {
+        if (Items.HasNextPage)
+            await OnChangeIndex.InvokeAsync(++pageIndex);
+    }
 }

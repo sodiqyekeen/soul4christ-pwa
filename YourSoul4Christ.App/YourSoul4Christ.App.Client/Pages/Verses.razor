@@ -2,28 +2,23 @@
 
 @inject AppService AppService
 
-@if (verses == null)
-{
-    <div style="height:100%;">
+<TemplatedGrid Loader="LoadVerses">
+    <Loading>
         <div class="text-center">
             <div class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-    </div>
-}
-else if (!verses.Any())
-{
-    <div class="row">
-        <p>No record found.</p>
-    </div>
-}
-else
-{
-    <div class="row">
-        <VerseGroup Verses="verses" />
-    </div>
-}
+    </Loading>
+    <Empty>
+        <div class="row">
+            <p>No verse found.</p>
+        </div>
+    </Empty>
+    <Item Context="item">
+        <VerseCard Verse="item" />
+    </Item>
+</TemplatedGrid>
 
 
 
@@ -31,24 +26,21 @@ else
 @code {
     [Parameter] public int Year { get; set; }
     [Parameter] public int Month { get; set; }
-    private Verse[] verses;
-    //private PaginatedList<Verse> verses;
-    //private bool isFormSubmitted = false;
     private PagingOptions pagingOptions = new PagingOptions();
 
-
-    protected override async Task OnParametersSetAsync()
+    async Task<IQueryable<Verse>> LoadVerses()
     {
+        var verses = Enumerable.Empty<Verse>().AsQueryable();
         try
         {
-            verses = (await AppService.GetVerseByDate(Year, Month)).ToArray();
-            //verses = await AppService.GetPaginatedVersesByDate(pagingOptions, Year, Month);
+            verses = await AppService.GetVersesByDateAsQueryable(Year, Month);
         }
         catch (Exception e)
         {
             Console.Error.WriteLine(e.Message);
             Console.Error.WriteLine(e.ToString());
         }
+        return verses;
     }
 
     //private async Task GetVerses(LoadVerseForm form)

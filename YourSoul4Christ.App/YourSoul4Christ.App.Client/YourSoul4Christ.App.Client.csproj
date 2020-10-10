@@ -6,21 +6,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="CreateVerseViewModel.cs" />
-    <Compile Remove="FirebaseClient.cs" />
-    <Compile Remove="NotificationSubscription.cs" />
-    <Compile Remove="VerseList.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Components\FilterDialog.razor" />
-    <Content Remove="Components\Pagination.razor" />
-    <Content Remove="Pages\AddNewVerse.razor" />
-    <Content Remove="Pages\VerseDetail.razor" />
-    <Content Remove="wwwroot\appsettings.json" />
-    <Content Remove="wwwroot\data\verses.json" />
-  </ItemGroup>
+  
 
   <ItemGroup>
     <None Include="wwwroot\data\verses.json">

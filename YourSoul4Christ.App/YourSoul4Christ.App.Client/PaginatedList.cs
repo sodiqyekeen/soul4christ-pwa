@@ -14,10 +14,14 @@ namespace YourSoul4Christ.App.Client
         public int Offset { get; private set; } // 1 (offset +1) - pageSize (offset + pageSize) of TotalRecords 
         public int TotalRecords { get; set; }
         public bool HasPreviousPage => (CurrentPage > 1);
-        public bool HasNextPage => (CurrentPage < TotalPages-1);
+        public bool HasNextPage => (CurrentPage < TotalPages);
         public int CurrentPageStartIndex => Offset + 1;
         public int CurrentPageLastIndex => Offset + Count;
 
+        public PaginatedList()
+        {
+
+        }
 
         public PaginatedList(List<T> items, int count, int offset, int pageIndex, int pageSize)
         {
@@ -37,5 +41,6 @@ namespace YourSoul4Christ.App.Client
                 .ToList();
             return new PaginatedList<T>(items, count, offset, pageIndex, pageSize);
         }
+
     }
 }

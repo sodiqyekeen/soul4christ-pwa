@@ -61,7 +61,13 @@ function onBlazorReady() {
             alert(error);
           });
       },
-    };
+      };
+
+      window.scroll = {
+          toTop: function () {
+              $("html, body").animate({ scrollTop: 0 }, 100);
+          }
+      };
 
     /* Top Header */
 

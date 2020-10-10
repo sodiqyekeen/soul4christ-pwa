@@ -1,18 +1,18 @@
 ﻿@inject IJSRuntime JSRuntime
 @if (Verse != null)
 {
-<div class="card h-100 verse-card">
+<div class="card  verse-card">
     @if (!string.IsNullOrEmpty(Title))
         {
     <div class="card-header text-center">
         <h3>@Title</h3>
     </div>
         }
-    <div class="card-body">
+    <div class="card-body" style="padding:1.0rem;">
         <h4 class="card-title text-center"> @Verse.Date.ToString("dd/MM/yyyy")</h4>
         <p class="card-text text-justify">@Verse.Content</p>
-        <p class="card-text text-right"><strong>@Verse.Book </strong></p>
-        <p class="card-text text-right"><strong>@*<a href="verses/@Verse.Date.ToString("ddMMyyyy")">@Verse.Book</a>*@ </strong></p>
+        <p class="card-text text-right pb-0"><strong>@Verse.Book </strong></p>
+        <!--<p class="card-text text-right pb-0"><strong>-->@*<a href="verses/@Verse.Date.ToString("ddMMyyyy")">@Verse.Book</a>*@ <!--</strong></p>-->
     </div>
     <div id="share-buttons" class="card-footer">
         <span>Share: </span>

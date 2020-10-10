@@ -3691,10 +3691,6 @@ table.grid {
     transition: all 0.3s ease;
 }
 
-/*#wrapper.toggled .footer {
-    position: absolute;
-    left: 0px;
-}*/
 
 .back-to-top {
     display: none;
@@ -3892,7 +3888,7 @@ table.grid {
     }
 
     #wrapper.toggled .footer {
-        position: absolute;
+        position: relative;
         left: 0px;
     }
 
@@ -3919,6 +3915,7 @@ table.grid {
         font-size: 15px;
         cursor: pointer;
     }
+
 
     .card {
         margin-bottom: 25px;
@@ -4188,4 +4185,14 @@ table.grid {
     animation-duration: 1s;
     animation-fill-mode: both;
     animation-name: fadeIn;
+}
+
+@media screen and (min-width: 768px){
+    .verse-card {
+        height: 100% !important;
+    }
+
+    .t-grid {
+        margin-bottom: 1.5rem !important;
+    }
 }

@@ -19,19 +19,26 @@ namespace YourSoul4Christ.App.Client
 
         public async Task<PaginatedList<Verse>> GetPaginatedVerses(PagingOptions pagingOptions)
         {
-            IQueryable<Verse> verseQuery = (await client.GetFromJsonAsync<List<Verse>>("data/verses.json")).OrderByDescending(v => v.Date).AsQueryable();
+            IQueryable<Verse> verseQuery = (await client.GetFromJsonAsync<Verse[]>("data/verses.json")).OrderByDescending(v => v.Date).AsQueryable();
             var paginatedList = PaginatedList<Verse>.Create(verseQuery, pagingOptions.Index, pagingOptions.Limit);
             return paginatedList;
         }
         public async Task<PaginatedList<Verse>> GetPaginatedVersesByDate(PagingOptions pagingOptions, int year, int month)
         {
-            IQueryable<Verse> verseQuery = (await client.GetFromJsonAsync<List<Verse>>("data/verses.json"))
+            IQueryable<Verse> verseQuery = (await client.GetFromJsonAsync<Verse[]>("data/verses.json"))
                 .Where(v => v.Date.Year == year && v.Date.Month == month)
                 .OrderByDescending(v => v.Date)
                 .AsQueryable();
             var paginatedList = PaginatedList<Verse>.Create(verseQuery, pagingOptions.Index, pagingOptions.Limit);
             return paginatedList;
         }
+
+        public async Task<IQueryable<Verse>> GetVersesByDateAsQueryable(int year, int month)=>
+            (await client.GetFromJsonAsync<Verse[]>("data/verses.json"))
+                .Where(v => v.Date.Year == year && v.Date.Month == month)
+                .OrderByDescending(v => v.Date)
+                .AsQueryable();
+
 
         public async Task GetDates()
         {
@@ -40,7 +47,7 @@ namespace YourSoul4Christ.App.Client
         }
 
         public async Task<IEnumerable<Verse>> GetVerses()=>
-            (await client.GetFromJsonAsync<List<Verse>>("data/verses.json")).OrderByDescending(v => v.Date).ToList();
+            (await client.GetFromJsonAsync<Verse[]>("data/verses.json")).OrderByDescending(v => v.Date).ToList();
 
         public async Task<IEnumerable<Verse>> GetVerseByDate(int year, int month) =>
             (await GetVerses()).Where(v => v.Date.Year == year && v.Date.Month == month).ToList();

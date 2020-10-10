@@ -44,19 +44,19 @@
     //    }
     //}
 
-    private async Task<Verse> GetVerseForToday()
-    {
-        string key = $"_versefortoday_{DateTime.Now:ddMMyyy}";
-        if (await localStorage.ContainKeyAsync(key))
-        {
-            return await localStorage.GetItemAsync<Verse>(key);
-        }
-        else
-        {
-            var verse = await AppService.GetVerseForToday();
-            if (verse != null)
-                await localStorage.SetItemAsync(key, verse);
-            return verse;
-        }
-    }
+    //private async Task<Verse> GetVerseForToday()
+    //{
+    //    string key = $"_versefortoday_{DateTime.Now:ddMMyyy}";
+    //    if (await localStorage.ContainKeyAsync(key))
+    //    {
+    //        return await localStorage.GetItemAsync<Verse>(key);
+    //    }
+    //    else
+    //    {
+    //        var verse = await AppService.GetVerseForToday();
+    //        if (verse != null)
+    //            await localStorage.SetItemAsync(key, verse);
+    //        return verse;
+    //    }
+    //}
 }
